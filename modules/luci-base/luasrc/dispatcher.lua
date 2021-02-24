@@ -566,11 +566,15 @@ local function session_setup(user, pass)
 
 		io.stderr:write("luci: accepted login on /%s for %s from %s\n"
 			%{ rp, user or "?", http.getenv("REMOTE_ADDR") or "?" })
+		nixio.syslog("info","luci: accepted login on /%s for %s from %s\n"
+			%{ rp, user or "?", http.getenv("REMOTE_ADDR") or "?" })
 
 		return session_retrieve(login.ubus_rpc_session)
 	end
 
 	io.stderr:write("luci: failed login on /%s for %s from %s\n"
+		%{ rp, user or "?", http.getenv("REMOTE_ADDR") or "?" })
+	nixio.syslog("info","luci: failed login on /%s for %s from %s\n"
 		%{ rp, user or "?", http.getenv("REMOTE_ADDR") or "?" })
 end
 
